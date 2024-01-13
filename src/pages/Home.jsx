@@ -53,15 +53,15 @@ const Home = () => {
   };
 
   function cleanAndSearch(query) {
-    if (query === "" || query == undefined || query === null) {
+    if (query === "" || query === undefined || query === null) {
         toast.error("Invalid Search.");
         return
     }
     query = query.toLowerCase();
     query = query.trim().split()[0].replace(/ /g, '+');
-    console.log("s=" + query)
+    query = "search=" + query;
     
-    navigate(`/search?${query}`)
+    navigate(`/${query}`)
   }
 
   return (
@@ -84,18 +84,18 @@ const Home = () => {
                   </Link>
                 </li>
                 <li id="search__btn" className="link">
-                  <a
+                  <div
                     id="search__button"
                     onClick={searchClick}
                     className="link--btn cursor"
                   >
                     Search
-                  </a>
+                  </div>
                 </li>
                 <li id="contact" className="link">
-                  <a href="#" className="link--btn no-cursor">
+                  <div className="link--btn no-cursor">
                     Contact
-                  </a>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -114,6 +114,7 @@ const Home = () => {
         <div className="input__container">
           <div className="input__wrapper">
             <input
+            autoComplete="off"
               ref={inputRef}
               id="search__box"
               type="text"
@@ -149,19 +150,19 @@ const Home = () => {
       <footer>
         <div className="horizontal-line"></div>
         <div className="logo__text--container">
-          <a className="logo__link" href="#">
+          <div className="logo__link">
             <img className="logo__img footermod1" src="/film_icon.png" alt="" />
             <p className="logo__text footermod2">Movie HQ</p>
-          </a>
+          </div>
         </div>
         <div className="footer__links">
           <div className="footer__link">
-            <a
+            <div
               className="footer__anchor link__hover-effect link__hover-effect--white"
               href="#"
             >
               Home
-            </a>
+            </div>
           </div>
           <div className="footer__link">
             <a
@@ -172,9 +173,9 @@ const Home = () => {
             </a>
           </div>
           <div className="footer__link">
-            <a className="footer__anchor link__hover-effect link__hover-effect--white no-cursor">
+            <div className="footer__anchor link__hover-effect link__hover-effect--white no-cursor">
               Contact
-            </a>
+            </div>
           </div>
         </div>
         <div className="copyright">Copyright 2023 &copy; Movie HQ</div>
