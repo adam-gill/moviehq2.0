@@ -57,7 +57,6 @@ const Home = () => {
         toast.error("Invalid Search.");
         return
     }
-    query = query.toLowerCase();
     query = query.trim().split()[0].replace(/ /g, '+');
     query = "search=" + query;
     

@@ -7,7 +7,7 @@ const MovieCardS = ({ movie }) => {
         <div className="poster__half">
           <img
             className="poster__img"
-            src={movie.Poster}
+            src={movie.Poster === "N/A" ? "/not_found.jpg" : movie.Poster}
             alt=""
           />
         </div>
