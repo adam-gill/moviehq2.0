@@ -244,6 +244,21 @@ input:focus {
   margin-bottom: 24px;
 }
 
+.results__title--container {
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.back__arrow {
+  cursor: pointer;
+  transition: all 400ms ease;
+}
+
+.back__arrow:hover {
+  opacity: 0.7;
+}
+
 /* MOVIES */
 
 #movies {

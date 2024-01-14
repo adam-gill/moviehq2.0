@@ -1,9 +1,11 @@
-import React, { useRef} from "react";
+import React, { useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import MovieCardS from "../components/MovieCardS";
 import toast from "react-hot-toast";
+import { FaArrowLeft } from "react-icons/fa6";
+import Footer from "../components/Footer";
 
 const Results = () => {
   const { query } = useParams();
@@ -25,14 +27,17 @@ const Results = () => {
   useEffect(() => {
     getMovies();
     setLoading(false);
-  }, []);
+  }, [query]);
 
   function cleanAndSearch(query) {
     if (query === "" || query === undefined || query === null) {
       toast.error("Invalid Search.");
       return;
     }
-    query = query.trim().split()[0].replace(/ /g, "+");
+    query = query
+      .trim()
+      .split()[0]
+      .replace(/ /g, "+");
     query = "search=" + query;
 
     navigate(`/${query}`);
@@ -40,13 +45,21 @@ const Results = () => {
 
   return (
     <div>
-      <div className="landing__title">
-        Results for &#39;{search.replace(/\+/g, " ")}&#39;
+      <div className="results__title--container">
+        <FaArrowLeft
+          size={64}
+          className="back__arrow"
+          onClick={() => navigate("/")}
+        />
+        <div className="landing__title">
+          Results for &#39;{search.replace(/\+/g, " ")}&#39;
+        </div>
       </div>
+
       <div className="input__container">
         <div className="input__wrapper">
           <input
-          value={inputValue}
+            value={inputValue}
             onChange={(event) => setInputValue(event.target.value)}
             autoComplete="off"
             ref={inputRef}
@@ -58,7 +71,10 @@ const Results = () => {
             }
           />
 
-          <div className="svg__holder" onClick={cleanAndSearch(inputValue)}>
+          <div
+            className="svg__holder"
+            onClick={() => cleanAndSearch(inputValue)}
+          >
             <svg
               className="magnifying__glass"
               xmlns="http://www.w3.org/2000/svg"
@@ -76,6 +92,7 @@ const Results = () => {
           <MovieCardS key={movie.imdbID} movie={movie} />
         ))}
       </div>
+      <Footer />
     </div>
   );
 };
