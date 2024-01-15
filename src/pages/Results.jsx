@@ -65,7 +65,7 @@ const Results = () => {
             ref={inputRef}
             id="search__box"
             type="text"
-            placeholder="Make another Search"
+            placeholder="Make another search"
             onKeyDown={(event) =>
               event.key === "Enter" && cleanAndSearch(event.target.value)
             }

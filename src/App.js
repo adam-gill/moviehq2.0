@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 import Results from "./pages/Results";
-import Search from "./pages/Search";
+import Movie from "./components/Movie";
 
 function App() {
   return (
@@ -12,7 +12,8 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<Home />}></Route>
-            <Route path=":query" element={<Results />}></Route>
+            <Route path="/results/:query" element={<Results />}></Route>
+            <Route path="/movie/:imdbID" element={<Movie />}></Route>
           </Routes>
         </div>
       </Router>

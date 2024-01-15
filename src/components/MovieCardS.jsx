@@ -1,9 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const MovieCardS = ({ movie }) => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <div className="movie no-cursor">
+      <div className="movie no-cursor" onClick={() => navigate(`/movie/${movie.imdbID}`)}>
         <div className="poster__half">
           <img
             className="poster__img"

@@ -61,7 +61,7 @@ const Home = () => {
     query = query.trim().split()[0].replace(/ /g, '+');
     query = "search=" + query;
     
-    navigate(`/${query}`)
+    navigate(`/results/${query}`)
   }
 
   return (
