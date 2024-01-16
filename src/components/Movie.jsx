@@ -36,8 +36,9 @@ const Movie = () => {
         <div className="landing__title">{movie.Title}</div>
       </div>
 
-      <div>
+      <div className="movie__poster--text">
         <img src={movie.Poster} alt="" />
+        <div>{movie.Title}</div>
       </div>
     </div>
   );
