@@ -23,7 +23,9 @@ const Movie = () => {
     // setLoading(false);
   }, []);
 
-  console.log(movie);
+  // function tomatoes(score) {
+  //   if (score > 60
+  // }
 
   return (
     <div>
@@ -36,9 +38,29 @@ const Movie = () => {
         <div className="landing__title">{movie.Title}</div>
       </div>
 
-      <div className="movie__poster--text">
-        <img src={movie.Poster} alt="" />
-        <div>{movie.Title}</div>
+      <div className="container__movie">
+        <div className="horizontal-line hl-mod"></div>
+        <div className="movie__poster--text">
+          <img src={movie.Poster} alt="" />
+          <div className="movie__text">
+            <div className="movie__plot">
+              <span className="movie__subtitle">Summary:</span>
+              {movie.Plot}
+            </div>
+            {/* <div className="movie__plot">
+              <span className="movie__subtitle">Ratings:</span>
+              IMDB: {movie.Ratings[0].Value} <br /> <br />
+              <div className="rotten">
+                Rotten Tomatoes: {movie.Ratings[1].Value}
+                  <img
+                    src="https://www.rottentomatoes.com/assets/pizza-pie/images/icons/tomatometer/tomatometer-fresh.149b5e8adc3.svg"
+                    alt=""
+                    className="tomato"
+                  />
+              </div>
+            </div> */}
+          </div>
+        </div>
       </div>
     </div>
   );

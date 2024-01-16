@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MovieCardS from "../components/MovieCardS";
 import toast from "react-hot-toast";
 import Footer from "../components/Footer";
+import { useState } from "react";
 
 const Home = () => {
   const featuredMovies = [
@@ -45,6 +46,8 @@ const Home = () => {
   const inputRef = useRef(null);
   const sectRef = useRef(null);
   const navigate = useNavigate();
+  const [inputValue, setInputValue] = useState();
+
 
   const searchClick = () => {
     if (inputRef.current) {
@@ -114,7 +117,9 @@ const Home = () => {
         <div className="input__container">
           <div className="input__wrapper">
             <input
-            autoComplete="off"
+              onChange={(event) => setInputValue(event.target.value)}
+              value={inputValue}
+              autoComplete="off"
               ref={inputRef}
               id="search__box"
               type="text"
@@ -122,7 +127,8 @@ const Home = () => {
               onKeyDown={(event) => event.key === "Enter" && cleanAndSearch(event.target.value)}
             />
 
-            <div className="svg__holder">
+            
+            <div className="svg__holder" onClick={() => cleanAndSearch(inputValue)}>
               <svg
                 className="magnifying__glass"
                 xmlns="http://www.w3.org/2000/svg"

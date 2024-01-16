@@ -11,6 +11,7 @@ const Results = () => {
   const { query } = useParams();
   const search = query.substring(7);
   const [movies, setMovies] = useState([]);
+  const [found, setFound] = useState(false);
   // const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState();
   const inputRef = useRef(null);
@@ -21,6 +22,7 @@ const Results = () => {
       `https://www.omdbapi.com/?apikey=61e2ff59&s=${search}`
     );
     setMovies(data.Search);
+    setFound(data.Response !== "False");
     // setLoading(false);
   }
 
@@ -40,7 +42,7 @@ const Results = () => {
       .replace(/ /g, "+");
     query = "search=" + query;
 
-    navigate(`/${query}`);
+    navigate(`/results/${query}`)
   }
 
   return (
@@ -51,9 +53,15 @@ const Results = () => {
           className="back__arrow"
           onClick={() => navigate("/")}
         />
-        <div className="landing__title">
-          Results for &#39;{search.replace(/\+/g, " ")}&#39;
-        </div>
+        {found ? (
+          <div className="landing__title">
+            Results for &#39;{search.replace(/\+/g, " ")}&#39;
+          </div>
+        ) : (
+          <div className="landing__title">
+            No results found for &#39;{search.replace(/\+/g, " ")}&#39;
+          </div>
+        )}
       </div>
 
       <div className="input__container">
@@ -87,11 +95,18 @@ const Results = () => {
           </div>
         </div>
       </div>
-      <div className="movies__container">
-        {movies.map((movie) => (
-          <MovieCardS key={movie.imdbID} movie={movie} />
-        ))}
-      </div>
+      {found ? (
+        <div className="movies__container">
+          {movies.map((movie) => (
+            <MovieCardS key={movie.imdbID} movie={movie} />
+          ))}
+        </div>
+      ) : (
+        <div className="landing__title">
+          <img className="not__found" src="/not_found.png" alt="" />
+        </div>
+      )}
+
       <Footer />
     </div>
   );
