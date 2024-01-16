@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import SpinningCircles from "react-loading-icons/dist/esm/components/spinning-circles";
-import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
+// import SpinningCircles from "react-loading-icons/dist/esm/components/spinning-circles";
+// import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 import MovieCardS from "../components/MovieCardS";
 import toast from "react-hot-toast";
 import Footer from "../components/Footer";

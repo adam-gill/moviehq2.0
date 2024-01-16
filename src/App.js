@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import { Toaster } from "react-hot-toast";
 import Results from "./pages/Results";
 import Movie from "./components/Movie";
+import React from "react";
 
 function App() {
   return (

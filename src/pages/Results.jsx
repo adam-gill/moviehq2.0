@@ -11,7 +11,7 @@ const Results = () => {
   const { query } = useParams();
   const search = query.substring(7);
   const [movies, setMovies] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState();
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -21,12 +21,12 @@ const Results = () => {
       `https://www.omdbapi.com/?apikey=61e2ff59&s=${search}`
     );
     setMovies(data.Search);
-    setLoading(false);
+    // setLoading(false);
   }
 
   useEffect(() => {
     getMovies();
-    setLoading(false);
+    // setLoading(false);
   }, [query]);
 
   function cleanAndSearch(query) {

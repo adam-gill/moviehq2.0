@@ -6,7 +6,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 
 const Movie = () => {
   const { imdbID } = useParams();
-  const [loading, setLoading] = useState(true);
+  // const [loading, setLoading] = useState(true);
   const [movie, setMovie] = useState({});
   const navigate = useNavigate();
 
@@ -15,12 +15,12 @@ const Movie = () => {
       `https://www.omdbapi.com/?apikey=61e2ff59&i=${imdbID}`
     );
     setMovie(data);
-    setLoading(false);
+    // setLoading(false);
   }
 
   useEffect(() => {
     getMovie();
-    setLoading(false);
+    // setLoading(false);
   }, []);
 
   console.log(movie);
