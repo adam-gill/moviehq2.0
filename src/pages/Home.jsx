@@ -1,7 +1,6 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
-// import SpinningCircles from "react-loading-icons/dist/esm/components/spinning-circles";
-// import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
+import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 import MovieCardS from "../components/MovieCardS";
 import toast from "react-hot-toast";
 import Footer from "../components/Footer";
@@ -47,7 +46,7 @@ const Home = () => {
   const sectRef = useRef(null);
   const navigate = useNavigate();
   const [inputValue, setInputValue] = useState();
-
+  const [loading, setLoading] = useState(true);
 
   const searchClick = () => {
     if (inputRef.current) {
@@ -58,14 +57,24 @@ const Home = () => {
 
   function cleanAndSearch(query) {
     if (query === "" || query === undefined || query === null) {
-        toast.error("Invalid Search.");
-        return
+      toast.error("Invalid Search.");
+      return;
     }
-    query = query.trim().split()[0].replace(/ /g, '+');
+    query = query
+      .trim()
+      .split()[0]
+      .replace(/ /g, "+");
     query = "search=" + query;
-    
-    navigate(`/results/${query}`)
+
+    navigate(`/results/${query}`);
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+    setLoading(false);
+
+    }, 200)
+  }, [])
 
   return (
     <>
@@ -96,9 +105,7 @@ const Home = () => {
                   </div>
                 </li>
                 <li id="contact" className="link">
-                  <div className="link--btn no-cursor">
-                    Contact
-                  </div>
+                  <div className="link--btn no-cursor">Contact</div>
                 </li>
               </ul>
             </div>
@@ -110,7 +117,6 @@ const Home = () => {
         <div className="landing__title">
           <h1>Stream All Your Favorite Movies at Movie HQ 🎥</h1>
         </div>
-        {/* <TailSpin stroke="#ff2400" speed="2.5"/> */}
       </section>
 
       <section id="search" ref={sectRef}>
@@ -124,11 +130,15 @@ const Home = () => {
               id="search__box"
               type="text"
               placeholder="Search for Movies by Title"
-              onKeyDown={(event) => event.key === "Enter" && cleanAndSearch(event.target.value)}
+              onKeyDown={(event) =>
+                event.key === "Enter" && cleanAndSearch(event.target.value)
+              }
             />
 
-            
-            <div className="svg__holder" onClick={() => cleanAndSearch(inputValue)}>
+            <div
+              className="svg__holder"
+              onClick={() => cleanAndSearch(inputValue)}
+            >
               <svg
                 className="magnifying__glass"
                 xmlns="http://www.w3.org/2000/svg"
@@ -147,11 +157,17 @@ const Home = () => {
         <div className="movies">
           <i className="fas fa-spinner movies__loading--spinner"></i>
         </div>
-        <div className="movies__container">
-          {featuredMovies.map((movie) => (
-            <MovieCardS key={movie.imdbID} movie={movie} />
-          ))}
-        </div>
+        {loading ? (
+          <div className="movies__container">
+            <TailSpin stroke="#ff2400" speed="2.5" width={300} height={300}/>
+          </div>
+        ) : (
+          <div className="movies__container">
+            {featuredMovies.map((movie) => (
+              <MovieCardS key={movie.imdbID} movie={movie} />
+            ))}
+          </div>
+        )}
       </section>
       <Footer />
     </>

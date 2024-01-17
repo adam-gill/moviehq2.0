@@ -6,13 +6,14 @@ import MovieCardS from "../components/MovieCardS";
 import toast from "react-hot-toast";
 import { FaArrowLeft } from "react-icons/fa6";
 import Footer from "../components/Footer";
+import TailSpin from "react-loading-icons/dist/esm/components/tail-spin";
 
 const Results = () => {
   const { query } = useParams();
   const search = query.substring(7);
   const [movies, setMovies] = useState([]);
   const [found, setFound] = useState(false);
-  // const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState();
   const inputRef = useRef(null);
   const navigate = useNavigate();
@@ -23,12 +24,15 @@ const Results = () => {
     );
     setMovies(data.Search);
     setFound(data.Response !== "False");
-    // setLoading(false);
+    setLoading(false);
   }
 
   useEffect(() => {
-    getMovies();
-    // setLoading(false);
+    setLoading(true);
+    setTimeout(() => {
+      getMovies();
+      setLoading(false);
+    }, 200);
   }, [query]);
 
   function cleanAndSearch(query) {
@@ -42,8 +46,32 @@ const Results = () => {
       .replace(/ /g, "+");
     query = "search=" + query;
 
-    navigate(`/results/${query}`)
+    navigate(`/results/${query}`);
   }
+
+  const getStatus = () => {
+    if (loading) {
+      return (
+        <div className="movies__container">
+          <TailSpin stroke="#ff2400" speed="2.5" width={300} height={300} />
+        </div>
+      );
+    } else if (!loading && found) {
+      return (
+        <div className="movies__container">
+          {movies.map((movie) => (
+            <MovieCardS key={movie.imdbID} movie={movie} />
+          ))}
+        </div>
+      );
+    } else if (!found && !loading) {
+      return (
+        <div className="landing__title">
+          <img className="not__found" src="/not_found.png" alt="" />
+        </div>
+      );
+    }
+  };
 
   return (
     <div>
@@ -95,18 +123,7 @@ const Results = () => {
           </div>
         </div>
       </div>
-      {found ? (
-        <div className="movies__container">
-          {movies.map((movie) => (
-            <MovieCardS key={movie.imdbID} movie={movie} />
-          ))}
-        </div>
-      ) : (
-        <div className="landing__title">
-          <img className="not__found" src="/not_found.png" alt="" />
-        </div>
-      )}
-
+      {getStatus()}
       <Footer />
     </div>
   );

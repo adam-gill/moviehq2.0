@@ -8,7 +8,7 @@ const MovieCardS = ({ movie }) => {
 
   return (
     <>
-      <div className="movie no-cursor" onClick={() => navigate(`/movie/${movie.imdbID}`)}>
+      <div className="movie" onClick={() => navigate(`/movie/${movie.imdbID}`)}>
         <div className="poster__half">
           <img
             className="poster__img"

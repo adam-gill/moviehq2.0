@@ -1,6 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const Footer = () => {
+
+  const navigate = useNavigate();
+
   return (
     <>
       <footer>
@@ -14,19 +18,19 @@ const Footer = () => {
         <div className="footer__links">
           <div className="footer__link">
             <div
-              className="footer__anchor link__hover-effect link__hover-effect--white"
-              href="#"
+              className="footer__anchor link__hover-effect link__hover-effect--white cursor"
+              onClick={() => navigate("/")}
             >
               Home
             </div>
           </div>
           <div className="footer__link">
-            <a
-              className="footer__anchor link__hover-effect link__hover-effect--white"
-              href="#search"
+            <div
+              className="footer__anchor link__hover-effect link__hover-effect--white cursor"
+              onClick={() => navigate("/")}
             >
               Search
-            </a>
+            </div>
           </div>
           <div className="footer__link">
             <div className="footer__anchor link__hover-effect link__hover-effect--white no-cursor">
