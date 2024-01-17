@@ -15,6 +15,7 @@ const Results = () => {
   const [found, setFound] = useState(false);
   const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState();
+  // const [sort, setSort] = useState();
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -49,29 +50,13 @@ const Results = () => {
     navigate(`/results/${query}`);
   }
 
-  const getStatus = () => {
-    if (loading) {
-      return (
-        <div className="movies__container">
-          <TailSpin stroke="#ff2400" speed="2.5" width={300} height={300} />
-        </div>
-      );
-    } else if (!loading && found) {
-      return (
-        <div className="movies__container">
-          {movies.map((movie) => (
-            <MovieCardS key={movie.imdbID} movie={movie} />
-          ))}
-        </div>
-      );
-    } else if (!found && !loading) {
-      return (
-        <div className="landing__title">
-          <img className="not__found" src="/not_found.png" alt="" />
-        </div>
-      );
+  function sortMovies(e) {
+    if (e === "OLD") {
+      setMovies([...movies].sort((a, b) => (a.Year) - (b.Year)));
+    } else if (e === "NEW") {
+      setMovies([...movies].sort((a, b) => (b.Year) - (a.Year)));
     }
-  };
+  }
 
   return (
     <div>
@@ -122,8 +107,31 @@ const Results = () => {
             </svg>
           </div>
         </div>
+        <select
+          className="dropdown"
+          id="filter"
+          onChange={(event) => sortMovies(event.target.value)}
+        >
+          <option value="DEFAULT" disabled>Filter</option>
+          <option value="NEW">Most Recent</option>
+          <option value="OLD">Earliest Release</option>
+        </select>
       </div>
-      {getStatus()}
+      {loading ? (
+        <div className="movies__container">
+          <TailSpin stroke="#ff2400" speed="2.5" width={300} height={300} />
+        </div>
+      ) : !found ? (
+        <div className="landing__title">
+          <img className="not__found" src="/not_found.png" alt="" />
+        </div>
+      ) : (
+        <div className="movies__container">
+          {movies.map((movie) => (
+            <MovieCardS key={movie.imdbID} movie={movie} />
+          ))}
+        </div>
+      )}
       <Footer />
     </div>
   );
