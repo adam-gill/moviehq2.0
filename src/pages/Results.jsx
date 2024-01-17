@@ -12,10 +12,10 @@ const Results = () => {
   const { query } = useParams();
   const search = query.substring(7);
   const [movies, setMovies] = useState([]);
-  const [found, setFound] = useState(false);
+  const [found, setFound] = useState(true);
   const [loading, setLoading] = useState(true);
   const [inputValue, setInputValue] = useState();
-  // const [sort, setSort] = useState();
+  const [selectedValue, setSelectedValue] = useState();
   const inputRef = useRef(null);
   const navigate = useNavigate();
 
@@ -110,9 +110,13 @@ const Results = () => {
         <select
           className="dropdown"
           id="filter"
-          onChange={(event) => sortMovies(event.target.value)}
+          onChange={(event) => {
+            sortMovies(event.target.value)
+            setSelectedValue(event.target.value)
+          }}
+          value={selectedValue}
         >
-          <option value="DEFAULT" disabled>Filter</option>
+          <option value="DEFAULT">Filter</option>
           <option value="NEW">Most Recent</option>
           <option value="OLD">Earliest Release</option>
         </select>
